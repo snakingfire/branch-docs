@@ -288,6 +288,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#content-sharing" title="Content Sharing" class="md-nav__link">
+    Content Sharing
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -297,8 +304,20 @@
   </li>
 
     
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../final/" title="Putting it all together" class="md-nav__link">
+      Putting it all together
+    </a>
+  </li>
+
+    
     <li class="md-nav__item" style="padding-top: 5em">
-      <a class="md-nav__link" href="slack://user?team=T02BUTP4H&id=U261725AB" title="Something broke! Help me!">Something broke! Help me!</a>
+      <a class="md-nav__link" href="slack://channel?team=T02BUTP4H&id=C1U7KNG0K" title="Something broke! Help me!">Something broke! Help me!</a>
     </li>
   </ul>
 </nav>
@@ -335,6 +354,13 @@
         <li class="md-nav__item">
   <a href="#deep-link-routing" title="Deep Link routing" class="md-nav__link">
     Deep Link routing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#content-sharing" title="Content Sharing" class="md-nav__link">
+    Content Sharing
   </a>
   
 </li>
@@ -461,6 +487,71 @@ is checking to make sure that:</p>
 
 <span class="kc">self</span><span class="p">.</span><span class="n">window</span><span class="p">!.</span><span class="n">rootViewController</span><span class="p">?.</span><span class="n">present</span><span class="p">(</span><span class="n">destination</span><span class="p">,</span> <span class="n">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="n">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
 </pre></div>
+
+
+<h3 id="content-sharing">Content Sharing<a class="headerlink" href="#content-sharing" title="Permanent link">&para;</a></h3>
+<p>One of the most valuable link distribution channels that you as a developer have access to are your users. To make sure that you fully support this, it's important to add content sharing functionality to your app, to provide an easy way for your users to create and send links. Thankfully, with Branch, content sharing is a very easy process. All you need to do is:</p>
+<ul>
+<li>Configure the link properties (eg Redirect URL's)</li>
+<li>Add link data (eg the <code>animal</code> property)</li>
+<li>Show the user the share sheet</li>
+</ul>
+<p>To add sharing to your Branch app, open the <code>MainStoryboad</code> file, and add a new button, called "Share", somewhere on the DetailView:</p>
+<ul>
+<li><code>Control + Drag</code> the button into the <code>DetailViewController</code></li>
+<li>Change the <code>Connection</code> type to <code>action</code></li>
+<li>Name the connection something like <code>shareButton</code></li>
+</ul>
+<p><img alt="image" src="../share_button.gif" /></p>
+<p>Inside of the <code>@IBAction func shareButton</code> code block, add the following:
+<div class="codehilite"><pre><span></span><span class="kd">let</span> <span class="nv">linkProperties</span><span class="p">:</span> <span class="n">BranchLinkProperties</span> <span class="p">=</span> <span class="n">BranchLinkProperties</span><span class="p">()</span>
+<span class="n">linkProperties</span><span class="p">.</span><span class="n">feature</span> <span class="p">=</span> <span class="s">&quot;sharing&quot;</span>
+
+<span class="kd">let</span> <span class="nv">branchUniversalObject</span><span class="p">:</span> <span class="n">BranchUniversalObject</span> <span class="p">=</span> <span class="n">BranchUniversalObject</span><span class="p">(</span><span class="n">canonicalIdentifier</span><span class="p">:</span> <span class="s">&quot;item/</span><span class="si">\(</span><span class="n">selectedAnimal</span><span class="p">!</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="n">branchUniversalObject</span><span class="p">.</span><span class="n">addMetadataKey</span><span class="p">(</span><span class="s">&quot;animal&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">selectedAnimal</span><span class="p">!)</span>
+<span class="n">branchUniversalObject</span><span class="p">.</span><span class="n">canonicalIdentifier</span> <span class="p">=</span> <span class="n">selectedAnimal</span><span class="p">!</span>
+<span class="n">branchUniversalObject</span><span class="p">.</span><span class="n">title</span> <span class="p">=</span> <span class="n">animalType</span><span class="p">.</span><span class="n">text</span><span class="p">!</span>
+<span class="n">branchUniversalObject</span><span class="p">.</span><span class="n">contentDescription</span> <span class="p">=</span> <span class="s">&quot;Check out my </span><span class="si">\(</span><span class="n">selectedAnimal</span><span class="p">!</span><span class="si">)</span><span class="s">!&quot;</span>
+
+<span class="n">branchUniversalObject</span><span class="p">.</span><span class="n">showShareSheet</span><span class="p">(</span><span class="n">with</span><span class="p">:</span> <span class="n">linkProperties</span><span class="p">,</span>
+    <span class="n">andShareText</span><span class="p">:</span> <span class="s">&quot;Here&#39;s my </span><span class="si">\(</span><span class="n">selectedAnimal</span><span class="p">!</span><span class="si">)</span><span class="s">!&quot;</span><span class="p">,</span>
+    <span class="n">from</span><span class="p">:</span> <span class="kc">self</span><span class="p">)</span> <span class="p">{</span> <span class="p">(</span><span class="n">activityType</span><span class="p">,</span> <span class="n">completed</span><span class="p">)</span> <span class="k">in</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">completed</span><span class="p">)</span> <span class="p">{</span>
+        <span class="bp">print</span><span class="p">(</span><span class="nb">String</span><span class="p">(</span><span class="n">format</span><span class="p">:</span> <span class="s">&quot;Completed sharing %@ to %@&quot;</span><span class="p">,</span> <span class="kc">self</span><span class="p">.</span><span class="n">selectedAnimal</span><span class="p">!,</span> <span class="n">activityType</span><span class="p">!))</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="bp">print</span><span class="p">(</span><span class="s">&quot;Link sharing cancelled&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</p>
+<p>The first thing we are doing here is creating a <code>BranchLinkProperties</code> object:
+<div class="codehilite"><pre><span></span><span class="kd">let</span> <span class="nv">linkProperties</span><span class="p">:</span> <span class="n">BranchLinkProperties</span> <span class="p">=</span> <span class="n">BranchLinkProperties</span><span class="p">()</span>
+<span class="n">linkProperties</span><span class="p">.</span><span class="n">feature</span> <span class="p">=</span> <span class="s">&quot;sharing&quot;</span>
+</pre></div>
+
+which stores the "control" information on the link. This is the object used to define analytics information (in this case the feature) as well as the control parameters, like the iOS fallback URL.</p>
+<p>The next object we are building is the <code>BranchUniversalObject</code>:
+<div class="codehilite"><pre><span></span><span class="kd">let</span> <span class="nv">branchUniversalObject</span><span class="p">:</span> <span class="n">BranchUniversalObject</span> <span class="p">=</span> <span class="n">BranchUniversalObject</span><span class="p">(</span><span class="n">canonicalIdentifier</span><span class="p">:</span> <span class="s">&quot;item/</span><span class="si">\(</span><span class="n">selectedAnimal</span><span class="p">!</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="n">branchUniversalObject</span><span class="p">.</span><span class="n">addMetadataKey</span><span class="p">(</span><span class="s">&quot;animal&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">selectedAnimal</span><span class="p">!)</span>
+<span class="n">branchUniversalObject</span><span class="p">.</span><span class="n">canonicalIdentifier</span> <span class="p">=</span> <span class="n">selectedAnimal</span><span class="p">!</span>
+<span class="n">branchUniversalObject</span><span class="p">.</span><span class="n">title</span> <span class="p">=</span> <span class="n">animalType</span><span class="p">.</span><span class="n">text</span><span class="p">!</span>
+<span class="n">branchUniversalObject</span><span class="p">.</span><span class="n">contentDescription</span> <span class="p">=</span> <span class="s">&quot;Check out my </span><span class="si">\(</span><span class="n">selectedAnimal</span><span class="p">!</span><span class="si">)</span><span class="s">!&quot;</span>
+</pre></div>
+
+This contains social media information, like the link image and content description, as well as custom data, like the <code>animal</code>.</p>
+<p>The last part of the sharing flow is showing the <code>share sheet</code> to the user, so they can select the app they would like to send the link with:
+<div class="codehilite"><pre><span></span><span class="n">branchUniversalObject</span><span class="p">.</span><span class="n">showShareSheet</span><span class="p">(</span><span class="n">with</span><span class="p">:</span> <span class="n">linkProperties</span><span class="p">,</span>
+    <span class="n">andShareText</span><span class="p">:</span> <span class="s">&quot;Here&#39;s my </span><span class="si">\(</span><span class="n">selectedAnimal</span><span class="p">!</span><span class="si">)</span><span class="s">!&quot;</span><span class="p">,</span>
+    <span class="n">from</span><span class="p">:</span> <span class="kc">self</span><span class="p">)</span> <span class="p">{</span> <span class="p">(</span><span class="n">activityType</span><span class="p">,</span> <span class="n">completed</span><span class="p">)</span> <span class="k">in</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">completed</span><span class="p">)</span> <span class="p">{</span>
+        <span class="bp">print</span><span class="p">(</span><span class="nb">String</span><span class="p">(</span><span class="n">format</span><span class="p">:</span> <span class="s">&quot;Completed sharing %@ to %@&quot;</span><span class="p">,</span> <span class="kc">self</span><span class="p">.</span><span class="n">selectedAnimal</span><span class="p">!,</span> <span class="n">activityType</span><span class="p">!))</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="bp">print</span><span class="p">(</span><span class="s">&quot;Link sharing cancelled&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</p>
+<p>When the user chooses an app, the message body will automatically be populated with the message (eg "Here's my cat!") with a Branch link appended.</p>
                 
                   
                 
@@ -493,6 +584,20 @@ is checking to make sure that:</p>
             </div>
           </a>
         
+        
+          <a href="../final/" title="Putting it all together" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Putting it all together
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
         
       </nav>
     </div>

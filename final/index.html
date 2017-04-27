@@ -9,28 +9,28 @@
         <meta name="description" content="Branch Deep Link Documentation">
       
       
-        <link rel="canonical" href="https://snakingfire.github.io/build-an-app/">
+        <link rel="canonical" href="https://snakingfire.github.io/build-an-app/final/">
       
       
         <meta name="author" content="Branch">
       
       
-        <link rel="shortcut icon" href="./assets/images/favicon.png">
+        <link rel="shortcut icon" href="../assets/images/favicon.png">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
     
       
-        <title>Branch Documentation</title>
+        <title>Putting it all together - Branch Documentation</title>
       
     
     
-      <script src="./assets/javascripts/modernizr-56ade86843.js"></script>
+      <script src="../assets/javascripts/modernizr-56ade86843.js"></script>
     
     
-      <link rel="stylesheet" href="./assets/stylesheets/application-4d0d3f2fbf.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application-4d0d3f2fbf.css">
       
-        <link rel="stylesheet" href="./assets/stylesheets/application-f78e5cb881.palette.css">
+        <link rel="stylesheet" href="../assets/stylesheets/application-f78e5cb881.palette.css">
       
     
     
@@ -44,7 +44,7 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     
     
-      <link rel="stylesheet" href="./css/extra.css">
+      <link rel="stylesheet" href="../css/extra.css">
     
     
   </head>
@@ -84,7 +84,7 @@
             
               
             
-            Integrating an app with Branch
+            Putting it all together
           
         </span>
       </div>
@@ -195,20 +195,11 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
-    
-      
-    
-    
-    <a href="." title="Integrating an app with Branch" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href=".." title="Integrating an app with Branch" class="md-nav__link">
       Integrating an app with Branch
     </a>
-    
   </li>
 
     
@@ -218,7 +209,7 @@
 
 
   <li class="md-nav__item">
-    <a href="sdk/" title="Getting the SDK" class="md-nav__link">
+    <a href="../sdk/" title="Getting the SDK" class="md-nav__link">
       Getting the SDK
     </a>
   </li>
@@ -230,7 +221,7 @@
 
 
   <li class="md-nav__item">
-    <a href="dash/" title="Creating an app" class="md-nav__link">
+    <a href="../dash/" title="Creating an app" class="md-nav__link">
       Creating an app
     </a>
   </li>
@@ -242,7 +233,7 @@
 
 
   <li class="md-nav__item">
-    <a href="ul-uri/" title="Opening the app with links" class="md-nav__link">
+    <a href="../ul-uri/" title="Opening the app with links" class="md-nav__link">
       Opening the app with links
     </a>
   </li>
@@ -254,7 +245,7 @@
 
 
   <li class="md-nav__item">
-    <a href="using-sdk/" title="Using the SDK" class="md-nav__link">
+    <a href="../using-sdk/" title="Using the SDK" class="md-nav__link">
       Using the SDK
     </a>
   </li>
@@ -264,11 +255,43 @@
       
       
 
+  
 
-  <li class="md-nav__item">
-    <a href="final/" title="Putting it all together" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Putting it all together
+      </label>
+    
+    <a href="./" title="Putting it all together" class="md-nav__link md-nav__link--active">
       Putting it all together
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" title="Next steps" class="md-nav__link">
+    Next steps
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
     
@@ -289,8 +312,20 @@
 <nav class="md-nav md-nav--secondary">
   
   
-    
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" title="Next steps" class="md-nav__link">
+    Next steps
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
   
 </nav>
                   </div>
@@ -302,22 +337,29 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/snakingfire/branch-docs/edit/master/docs/index.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
+                  <a href="https://github.com/snakingfire/branch-docs/edit/master/docs/final.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
                 
                 
-                <h1 align="center">
-  <a href="https://branch.io"><img src="http://i.imgur.com/Y5EPQTo.png" alt="Branch for Cordova/PhoneGap/Ionic" width="550"></a>
-</h1>
-
-<h1 id="integrating-an-app-with-branch">Integrating an app with Branch<a class="headerlink" href="#integrating-an-app-with-branch" title="Permanent link">&para;</a></h1>
-<blockquote>
-<p>Hyperlinks can navigate to your website, but not to your app. Branch fixes this with deep links.</p>
-<p>Branch will grow your app by allowing users to install, open, and navigate to content inside your app.</p>
-<p>Increase discovery of your app by sharing its content, converting web users to app users, enabling user-to-user sharing, personalizing user experiences, tracking users, tracking referrals, tracking campaigns, tracking conversions, and increasing overall engagement.</p>
-</blockquote>
-<p align="center">
-  <img src="/intro.gif"/></a>
-</p>
+                  <h1>Putting it all together</h1>
+                
+                <p>Congratulations! You've made it almost all the way through this guide. At this point, you should have:</p>
+<ul>
+<li>Set up Cocoapods on your computer, and installed the Branch SDK</li>
+<li>Created a Branch app, and linked it with your Xcode project</li>
+<li>Configured Universal Links and a URI Scheme</li>
+<li>Set up deep link routing to take users to an animal</li>
+</ul>
+<p>The only thing left to do is test the integration out. Go back to your Branch dashboard, and <a href="https://dashboard.branch.io/quick-links/qlc/config/">create a new link</a>. Name it anything you like, and then:</p>
+<ul>
+<li>Click <code>Configure Options</code></li>
+<li>Select <code>+ More Data</code></li>
+<li>Set the <code>Key</code> to <code>animal</code></li>
+<li>Update the <code>Value</code>to either <code>cat</code> or <code>dog</code></li>
+<li>Click <code>Create now</code></li>
+</ul>
+<p><img alt="image" src="../create_link.gif" /></p>
+<h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<p>Now that you have a Branch integrated app, you can start expanding the list of animals that your app supports, or even switch to showing something completely different. However, with Branch integrated, you can easily route users, regardless of why type of app you create. Start thinking of a creative way you can make use of Branch, or <a href="http://dev.branch.io/">visit the docs</a> to try out some of the more advanced things you can do with Branch.</p>
                 
                   
                 
@@ -336,20 +378,20 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-        
-          <a href="sdk/" title="Getting the SDK" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../using-sdk/" title="Using the SDK" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
-                  Next
+                  Previous
                 </span>
-                Getting the SDK
+                Using the SDK
               </span>
             </div>
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
-            </div>
           </a>
+        
         
       </nav>
     </div>
@@ -393,10 +435,10 @@
       
     </div>
     
-      <script src="./assets/javascripts/application-6b599127bc.js"></script>
-      <script>app.initialize({url:{base:"."}})</script>
+      <script src="../assets/javascripts/application-6b599127bc.js"></script>
+      <script>app.initialize({url:{base:".."}})</script>
       
-        <script src="./js/extra.js"></script>
+        <script src="../js/extra.js"></script>
       
     
     

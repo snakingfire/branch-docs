@@ -304,8 +304,20 @@
   </li>
 
     
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../final/" title="Putting it all together" class="md-nav__link">
+      Putting it all together
+    </a>
+  </li>
+
+    
     <li class="md-nav__item" style="padding-top: 5em">
-      <a class="md-nav__link" href="slack://user?team=T02BUTP4H&id=U261725AB" title="Something broke! Help me!">Something broke! Help me!</a>
+      <a class="md-nav__link" href="slack://channel?team=T02BUTP4H&id=C1U7KNG0K" title="Something broke! Help me!">Something broke! Help me!</a>
     </li>
   </ul>
 </nav>
@@ -378,25 +390,56 @@
 <li>Open a terminal window</li>
 <li>Paste in the command: <code>sudo gem install cocoapods</code></li>
 </ul>
-<p>Once the gem has finished installing:</p>
+<blockquote>
+<p>The <code>sudo</code> command provides special permissions needed to install Cocoapods, so you'll need to enter your computer password when prompted</p>
+</blockquote>
+<p>Once the command finishes running:</p>
 <ul>
-<li>Type <code>cd</code> into the terminal window</li>
-<li>Drag and drop the <code>BuildAnAppAB</code> folder into the terminal window</li>
+<li>Type <code>cd</code> into the terminal window, and add a space</li>
+<li>Drag and drop your project folder (eg <code>BuildAnAppJB</code>) into the terminal window. Your command should now look something similar to:
+<div class="codehilite"><pre><span></span><span class="nb">cd</span> /Users/&lt;your name&gt;/Documents/BuildAnAppJB
+</pre></div>
+</li>
 <li>Press enter:</li>
 </ul>
 <p><img alt="image" src="../cd_gif.gif" /></p>
 <p>Once you have a terminal window in the same location as your app's code, we can install the Branch SDK.</p>
 <h3 id="adding-the-branch-pod">Adding the Branch Pod<a class="headerlink" href="#adding-the-branch-pod" title="Permanent link">&para;</a></h3>
-<p>To add the Branch SDK to your Xcode project, we need to initialize cocoapods. To do this, run <code>pod init</code> from the terminal window we set up previously. This will create a new file in your project folder called, descriptively, <code>Podfile</code>:</p>
+<p>To add the Branch SDK to your Xcode project, we need to initialize cocoapods. To do this, run:</p>
+<ul>
+<li><code>pod init</code></li>
+</ul>
+<p>from the terminal window we set up previously. This will create a new file in your project folder called, descriptively, <code>Podfile</code>:</p>
 <p><img alt="image" src="../pod_init.gif" /></p>
-<p>This file contains all of the other code libraries, like the Branch SDK, that your project will use. To add Branch to this list of libraries, open the Podfile in a text editor, and add <code>pod 'Branch'</code> below <code>#Pods for ...</code></p>
+<p>This file contains all of the other code libraries, like the Branch SDK, that your project will use. To add Branch to this list of libraries:</p>
+<ul>
+<li>open the <code>Podfile</code> in a text editor</li>
+<li>Paste in <code>pod 'Branch'</code> below the line <code>#Pods for ...</code></li>
+</ul>
+<blockquote>
+<p>Depending on your computer settings, the <code>Podfile</code> may or may not open in a text editor when you double click it.
+To be safe, you can right click the file and select <code>Open with -&gt; &lt;Some text editing application&gt;</code>.
+Note that if you choose <code>Textedit</code>, be carefull that you <em>paste</em> <code>pod 'Branch'</code> into the file, instead of typing it manually, or you will end up with the wrong type of <code>'</code>'s (yes, there are multiple types).</p>
+</blockquote>
 <p><img alt="image" src="../pod_config.gif" /></p>
-<p>Once the Branch pod as been declared, close your text editor, and run <code>pod install</code> to install the SDK files, and generate a new Xcode workspace:</p>
+<p>Once the Branch pod as been declared, save the file and close your text editor. Then run:</p>
+<ul>
+<li><code>pod install</code></li>
+</ul>
+<p>in your terminal window to add the SDK files and generate a new Xcode workspace:</p>
 <p><img alt="image" src="../pod_install.gif" /></p>
 <h3 id="using-the-new-project">Using the new project<a class="headerlink" href="#using-the-new-project" title="Permanent link">&para;</a></h3>
-<p>Because of the way that Xcode and Cocoapods interact to handle dependencies like the Branch SDK, you won't be able to continue using the <code>projectName.xcproject</code> to work on your app. Instead, you need to use the <code>projectName.xcworkspace</code> file the was generated in the above steps. To switch, simply quit Xcode and double click the <code>.xcworkspace</code> file.</p>
+<p>Because of the way that Xcode and Cocoapods interact to handle project dependencies like the Branch SDK, you won't be able to continue using the <code>projectName.xcproject</code> file to work on your app. Instead, you need to use the <code>projectName.xcworkspace</code> file the was generated in the above steps. This <code>xcworkspace</code> file allows you to use both your code, and the Branch SDK code in the same project. To switch, simply quit Xcode and double click the new <code>.xcworkspace</code> file.</p>
 <h3 id="exposing-the-sdk">Exposing the SDK<a class="headerlink" href="#exposing-the-sdk" title="Permanent link">&para;</a></h3>
-<p>Because the Branch SDK is created in a different language than your app we need to add a <code>Bridging header</code> to your project, to allow your Swift code to make use of the Objective C methods in the SDK. To do this, select <code>File -&gt; New -&gt; File</code> in your Xcode project, and select the <code>Header file</code> option. You can name this file whatever you like, but convention is to follow a <code>YourAppName-Bridging-Header.h</code> format. Once the file has been created, replace all of it's contents with:
+<p>Because the Branch SDK is created in a different language than your app, we need to add a <code>Bridging header</code> to your project, to allow your Swift code to make use of the Objective C code in the SDK. To do this:</p>
+<ul>
+<li>Select <code>File -&gt; New -&gt; File</code> in Xcode</li>
+<li>Select the <code>Header file</code> option</li>
+</ul>
+<blockquote>
+<p>You can name this file whatever you like, but convention is to follow a <code>YourAppName-Bridging-Header.h</code> format.</p>
+</blockquote>
+<p>After the file has been created, replace all of it's contents with:
 <div class="codehilite"><pre><span></span><span class="c1">//</span>
 <span class="c1">//  Use this file to import your target&#39;s public headers that you would like to expose to Swift.</span>
 <span class="c1">//</span>

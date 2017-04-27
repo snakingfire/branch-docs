@@ -297,8 +297,20 @@
   </li>
 
     
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../final/" title="Putting it all together" class="md-nav__link">
+      Putting it all together
+    </a>
+  </li>
+
+    
     <li class="md-nav__item" style="padding-top: 5em">
-      <a class="md-nav__link" href="slack://user?team=T02BUTP4H&id=U261725AB" title="Something broke! Help me!">Something broke! Help me!</a>
+      <a class="md-nav__link" href="slack://channel?team=T02BUTP4H&id=C1U7KNG0K" title="Something broke! Help me!">Something broke! Help me!</a>
     </li>
   </ul>
 </nav>
@@ -359,7 +371,11 @@
                   <h1>Creating an app</h1>
                 
                 <h3 id="creating-a-new-app">Creating a new app<a class="headerlink" href="#creating-a-new-app" title="Permanent link">&para;</a></h3>
-<p>Before moving on any further, we need to create a Branch app, to use with your Xcode app. To do this, head over to the <a href="#http://dashboard.branch.io/">Branch Dashboard</a> and click the app selector in the top left corner. Once there, select <code>Create new app</code>, and give it a descriptive name:</p>
+<p>In order to start setting up our app to use Branch links, we need to create a Branch app to use with your Xcode project. To do this, head over to the <a href="#http://dashboard.branch.io/">Branch Dashboard</a> and click the app selector in the top left corner:</p>
+<ul>
+<li>Select <code>Create new app</code></li>
+<li>Name it something descriptive</li>
+</ul>
 <p><img alt="image" src="../dash_app.gif" /></p>
 <h3 id="setting-up-link-redirects">Setting up link redirects<a class="headerlink" href="#setting-up-link-redirects" title="Permanent link">&para;</a></h3>
 <p>With a new Branch app, we need to specify where your future users will be sent. To do this, head over to the <code>Link Settings</code> tab, and:</p>
@@ -371,7 +387,14 @@
 </ul>
 <p><img alt="image" src="../dash_redirect.gif" /></p>
 <h3 id="adding-the-branch-key-to-xcode">Adding the Branch key to Xcode<a class="headerlink" href="#adding-the-branch-key-to-xcode" title="Permanent link">&para;</a></h3>
-<p>Finally, before moving forward, we need to add the key of the newly created Branch app to your Xcode project. Head over to the <a href="https://dashboard.branch.io/account-settings/app">Account Settings</a> page of your dashboard, and copy the <code>Branch Key</code>. Switch back to Xcode and open the <code>info.plist</code> file. Hover over the last entry, and click the <code>+</code> button. Name the new entry <code>branch_key</code> and use the drop-down menu on the right to set the type to <code>dictionary</code>. Then, hovering over the <code>branch_key</code> entry, click the <code>+</code> symbol again, adding an entry <code>live</code> with the value being the Branch key you copied earlier.</p>
+<p>Finally, before moving forward, we need to add the key of the newly created Branch app to your Xcode project. Head over to the <a href="https://dashboard.branch.io/account-settings/app">Account Settings</a> page of your dashboard, and copy the <code>Branch Key</code>. Switch back to Xcode and:</p>
+<ul>
+<li>Open the <code>info.plist</code> file</li>
+<li>Hover over the last entry, and click the <code>+</code> button</li>
+<li>Name the new entry <code>branch_key</code> and use the drop-down menu on the right to set the type to <code>dictionary</code></li>
+<li>Hover over the <code>branch_key</code> entry, and click the <code>+</code> symbol again</li>
+<li>Name the new entry <code>live</code>, and set the value to the Branch key you copied earlier.</li>
+</ul>
 <p><img alt="image" src="../add_key.gif" /></p>
                 
                   
