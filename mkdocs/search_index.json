@@ -1,0 +1,99 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "Integrating an app with Branch\n\n\n\n\nHyperlinks can navigate to your website, but not to your app. Branch fixes this with deep links.\n\n\nBranch will grow your app by allowing users to install, open, and navigate to content inside your app.\n\n\nIncrease discovery of your app by sharing its content, converting web users to app users, enabling user-to-user sharing, personalizing user experiences, tracking users, tracking referrals, tracking campaigns, tracking conversions, and increasing overall engagement.", 
+            "title": "Integrating an app with Branch"
+        }, 
+        {
+            "location": "/#integrating-an-app-with-branch", 
+            "text": "Hyperlinks can navigate to your website, but not to your app. Branch fixes this with deep links.  Branch will grow your app by allowing users to install, open, and navigate to content inside your app.  Increase discovery of your app by sharing its content, converting web users to app users, enabling user-to-user sharing, personalizing user experiences, tracking users, tracking referrals, tracking campaigns, tracking conversions, and increasing overall engagement.", 
+            "title": "Integrating an app with Branch"
+        }, 
+        {
+            "location": "/sdk/", 
+            "text": "Installing Cocoapods\n\n\nThe quickest way to get the Branch SDK is by using the dependency manager Cocoapods. However, before you can use Cocoapods to get the Branch SDK, you must first install Cocoapods itself. To do this:\n\n\n\n\nOpen a terminal window\n\n\nPaste in the command: \nsudo gem install cocoapods\n\n\n\n\nOnce the gem has finished installing:\n\n\n\n\nType \ncd\n into the terminal window\n\n\nDrag and drop the \nBuildAnAppAB\n folder into the terminal window\n\n\nPress enter:\n\n\n\n\n\n\nOnce you have a terminal window in the same location as your app's code, we can install the Branch SDK.\n\n\nAdding the Branch Pod\n\n\nTo add the Branch SDK to your Xcode project, we need to initialize cocoapods. To do this, run \npod init\n from the terminal window we set up previously. This will create a new file in your project folder called, descriptively, \nPodfile\n:\n\n\n\n\nThis file contains all of the other code libraries, like the Branch SDK, that our project will use. To add Branch to this list of libraries, open the Podfile in a text editor, and add \npod 'Branch'\n below \n#Pods for ...\n\n\n\n\nOnce the Branch pod as been declared, close your text editor, and run \npod install\n to install the SDK files, and generate a new Xcode workspace:\n\n\n\n\nUsing the new project\n\n\nBecause of the way that Xcode and Cocoapods interact to handle dependencies like the Branch SDK, you won't be able to continue using the \nprojectName.xcproject\n to work on your app. Instead, you need to use the \nprojectName.xcworkspace\n file the was generated in the above steps. To switch, simply quit Xcode and double click the \n.xcworkspace\n file.", 
+            "title": "Getting the SDK"
+        }, 
+        {
+            "location": "/sdk/#installing-cocoapods", 
+            "text": "The quickest way to get the Branch SDK is by using the dependency manager Cocoapods. However, before you can use Cocoapods to get the Branch SDK, you must first install Cocoapods itself. To do this:   Open a terminal window  Paste in the command:  sudo gem install cocoapods   Once the gem has finished installing:   Type  cd  into the terminal window  Drag and drop the  BuildAnAppAB  folder into the terminal window  Press enter:    Once you have a terminal window in the same location as your app's code, we can install the Branch SDK.", 
+            "title": "Installing Cocoapods"
+        }, 
+        {
+            "location": "/sdk/#adding-the-branch-pod", 
+            "text": "To add the Branch SDK to your Xcode project, we need to initialize cocoapods. To do this, run  pod init  from the terminal window we set up previously. This will create a new file in your project folder called, descriptively,  Podfile :   This file contains all of the other code libraries, like the Branch SDK, that our project will use. To add Branch to this list of libraries, open the Podfile in a text editor, and add  pod 'Branch'  below  #Pods for ...   Once the Branch pod as been declared, close your text editor, and run  pod install  to install the SDK files, and generate a new Xcode workspace:", 
+            "title": "Adding the Branch Pod"
+        }, 
+        {
+            "location": "/sdk/#using-the-new-project", 
+            "text": "Because of the way that Xcode and Cocoapods interact to handle dependencies like the Branch SDK, you won't be able to continue using the  projectName.xcproject  to work on your app. Instead, you need to use the  projectName.xcworkspace  file the was generated in the above steps. To switch, simply quit Xcode and double click the  .xcworkspace  file.", 
+            "title": "Using the new project"
+        }, 
+        {
+            "location": "/dash/", 
+            "text": "Creating a new app\n\n\nBefore moving on any further, we need to create a Branch app, to use with our Xcode app. To do this, head over to the \nBranch Dashboard\n and click the app selector in the top left corner. Once there, select \nCreate new app\n, and give it a descriptive name:\n\n\n\n\nSetting up link redirects\n\n\nWith a new Branch app, we need to specify where our future users will be sent. To do this, head over to the \nLink Settings\n tab, and:\n\n\n\n\nSelect \nI have an iOS App\n\n\nEnter an iOS redirect URL (eg \nhttp://branch.io\n)\n\n\n(Optional) Add redirects for Android and Desktop\n\n\nClick save\n\n\n\n\n\n\nAdding the Branch key to Xcode\n\n\nFinally, before moving forward, we need to add the key of the newly created Branch app to your Xcode project. Head over to the \nAccount Settings\n page of your dashboard, and copy the \nBranch Key\n. Switch back to Xcode and open the \ninfo.plist\n file. Hover over the last entry, and click the \n+\n button. Name the new entry \nbranch_key\n and use the drop-down menu on the right to set the type to \ndictionary\n. Then, hovering over the \nbranch_key\n entry, click the \n+\n symbol again, adding an entry \nlive\n with the value being the Branch key you copied earlier.", 
+            "title": "Creating an app"
+        }, 
+        {
+            "location": "/dash/#creating-a-new-app", 
+            "text": "Before moving on any further, we need to create a Branch app, to use with our Xcode app. To do this, head over to the  Branch Dashboard  and click the app selector in the top left corner. Once there, select  Create new app , and give it a descriptive name:", 
+            "title": "Creating a new app"
+        }, 
+        {
+            "location": "/dash/#setting-up-link-redirects", 
+            "text": "With a new Branch app, we need to specify where our future users will be sent. To do this, head over to the  Link Settings  tab, and:   Select  I have an iOS App  Enter an iOS redirect URL (eg  http://branch.io )  (Optional) Add redirects for Android and Desktop  Click save", 
+            "title": "Setting up link redirects"
+        }, 
+        {
+            "location": "/dash/#adding-the-branch-key-to-xcode", 
+            "text": "Finally, before moving forward, we need to add the key of the newly created Branch app to your Xcode project. Head over to the  Account Settings  page of your dashboard, and copy the  Branch Key . Switch back to Xcode and open the  info.plist  file. Hover over the last entry, and click the  +  button. Name the new entry  branch_key  and use the drop-down menu on the right to set the type to  dictionary . Then, hovering over the  branch_key  entry, click the  +  symbol again, adding an entry  live  with the value being the Branch key you copied earlier.", 
+            "title": "Adding the Branch key to Xcode"
+        }, 
+        {
+            "location": "/ul-uri/", 
+            "text": "URI Schemes\n\n\nWhile we're still on the dashboard, let's come up with a URI scheme for your app. This can be anything you want (so long as it doesn't contain any \"special\" characters), and is used for opening your app in situations where Universal Links can't.\n\n\nOnce you have a URI scheme to use, enter it on the dashboard, and click save. Once the dashboard has updated, switch to Xcode, and:\n\n\n\n\nClick the project file (it's the item at the top of the file list)\n\n\nSelect the \nInfo\n tab\n\n\nExpand the \nURL Types\n section\n\n\nClick the \n+\n symbol\n\n\nIn the \nURL Schemes\n box, paste the URI Scheme you decided on above\n\n\n\n\n\n\nUniversal Links\n\n\nDashboard setup\n\n\nUniversal Links are crucial for opening your app, so getting them set up is one of the most important parts of integrating with Branch.\n\n\nTo configure Universal Links, first go to the \nCertificates, Identifiers \n Profiles\n page of Apple's Developer website. Once on the website, search for the \nBundle Identifier\n that you set for your project, in Xcode. Once you've found it, expand the entry, and copy the \nPrefix\n value.\n\n\nWith the \nPrefix\n for your app, head over to the \nlink settings\n page of your dashboard. Here, set the \nApple App Prefix\n to the value you just copied, and update the  \nBundle Identifier\n field to the id you set for your project. Don't forget to click save!\n\n\n\n\nXcode setup\n\n\nOnce you've updated your dashboard settings, you need to switch back to Xcode to configure the \nEntitlements\n with your Branch app. Before switch, though, make sure to note down the Branch \nsomething\n.app.link\n domain that your Branch app is using.\n\n\nIn Xcode, click your project file (top of the list) and select the \nCapabilities\n tab. Expand the \nAssociated Domains\n section, turn it \non\n, and add two entries:\n\n\n\n\napplinks:something.app.link\n\n\napplinks:something-alternate.app.link\n\n\n\n\nreplacing \nsomething\n with your Branch domain.", 
+            "title": "Opening the app with links"
+        }, 
+        {
+            "location": "/ul-uri/#uri-schemes", 
+            "text": "While we're still on the dashboard, let's come up with a URI scheme for your app. This can be anything you want (so long as it doesn't contain any \"special\" characters), and is used for opening your app in situations where Universal Links can't.  Once you have a URI scheme to use, enter it on the dashboard, and click save. Once the dashboard has updated, switch to Xcode, and:   Click the project file (it's the item at the top of the file list)  Select the  Info  tab  Expand the  URL Types  section  Click the  +  symbol  In the  URL Schemes  box, paste the URI Scheme you decided on above", 
+            "title": "URI Schemes"
+        }, 
+        {
+            "location": "/ul-uri/#universal-links", 
+            "text": "", 
+            "title": "Universal Links"
+        }, 
+        {
+            "location": "/ul-uri/#dashboard-setup", 
+            "text": "Universal Links are crucial for opening your app, so getting them set up is one of the most important parts of integrating with Branch.  To configure Universal Links, first go to the  Certificates, Identifiers   Profiles  page of Apple's Developer website. Once on the website, search for the  Bundle Identifier  that you set for your project, in Xcode. Once you've found it, expand the entry, and copy the  Prefix  value.  With the  Prefix  for your app, head over to the  link settings  page of your dashboard. Here, set the  Apple App Prefix  to the value you just copied, and update the   Bundle Identifier  field to the id you set for your project. Don't forget to click save!", 
+            "title": "Dashboard setup"
+        }, 
+        {
+            "location": "/ul-uri/#xcode-setup", 
+            "text": "Once you've updated your dashboard settings, you need to switch back to Xcode to configure the  Entitlements  with your Branch app. Before switch, though, make sure to note down the Branch  something .app.link  domain that your Branch app is using.  In Xcode, click your project file (top of the list) and select the  Capabilities  tab. Expand the  Associated Domains  section, turn it  on , and add two entries:   applinks:something.app.link  applinks:something-alternate.app.link   replacing  something  with your Branch domain.", 
+            "title": "Xcode setup"
+        }, 
+        {
+            "location": "/using-sdk/", 
+            "text": "Initializing Branch\n\n\nWhile we're still on the dashboard, let's come up with a URI scheme for your app. This can be anything you want (so long as it doesn't contain any \"special\" characters), and is used for opening your app in situations where Universal Links can't.\n\n\nOnce you have a URI scheme to use, enter it on the dashboard, and click save. Once the dashboard has updated, switch to Xcode, and:\n\n\n\n\nClick the project file (it's the item at the top of the file list)\n\n\nSelect the \nInfo\n tab\n\n\nExpand the \nURL Types\n section\n\n\nClick the \n+\n symbol\n\n\nIn the \nURL Schemes\n box, paste the URI Scheme you decided on above\n\n\n\n\n\n\nHandling Links\n\n\nDeep Link routing", 
+            "title": "Using the SDK"
+        }, 
+        {
+            "location": "/using-sdk/#initializing-branch", 
+            "text": "While we're still on the dashboard, let's come up with a URI scheme for your app. This can be anything you want (so long as it doesn't contain any \"special\" characters), and is used for opening your app in situations where Universal Links can't.  Once you have a URI scheme to use, enter it on the dashboard, and click save. Once the dashboard has updated, switch to Xcode, and:   Click the project file (it's the item at the top of the file list)  Select the  Info  tab  Expand the  URL Types  section  Click the  +  symbol  In the  URL Schemes  box, paste the URI Scheme you decided on above", 
+            "title": "Initializing Branch"
+        }, 
+        {
+            "location": "/using-sdk/#handling-links", 
+            "text": "", 
+            "title": "Handling Links"
+        }, 
+        {
+            "location": "/using-sdk/#deep-link-routing", 
+            "text": "", 
+            "title": "Deep Link routing"
+        }
+    ]
+}
