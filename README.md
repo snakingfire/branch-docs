@@ -1,6 +1,6 @@
 ### live
 
-- [click here](https://ethanneff.github.io/branch-docs/)
+- [click here](https://snakingfire.github.io/branch-docs/)
 
 ### dependencies 
 
@@ -12,7 +12,7 @@ pip --version #pip 1.5.2
 ### install
 
 ```bash
-git clone git@github.com:ethanneff/branch-docs.git
+git clone git@github.com:snakingfire/branch-docs.git
 cd branch-docs
 ```
 
@@ -34,7 +34,7 @@ open http://localhost:8000/
 
 ```bash
 mkdocs gh-deploy
-open https://ethanneff.github.io/branch-docs/
+open https://snakingfire.github.io/branch-docs/
 ```
 
 ### resources
@@ -44,15 +44,3 @@ open https://ethanneff.github.io/branch-docs/
 - https://github.com/squidfunk/mkdocs-material
 
 - https://github.com/facelessuser/pymdown-extensions
-
-### best practices
-
-- folders 
-
-    - must be lowercase and hyphened
-
-- content 
-
-    - bullets and sections must have new line spacing in between
-
-    - indention is 4 spaces
