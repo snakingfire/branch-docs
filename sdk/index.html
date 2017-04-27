@@ -422,7 +422,7 @@ To be safe, you can right click the file and select <code>Open with -&gt; &lt;So
 Note that if you choose <code>Textedit</code>, be carefull that you <em>paste</em> <code>pod 'Branch'</code> into the file, instead of typing it manually, or you will end up with the wrong type of <code>'</code>'s (yes, there are multiple types).</p>
 </blockquote>
 <p><img alt="image" src="../pod_config.gif" /></p>
-<p>Once the Branch pod as been declared, save the file and close your text editor. Then run:</p>
+<p>With the Branch pod declared, save the file and close your text editor. Then run:</p>
 <ul>
 <li><code>pod install</code></li>
 </ul>
@@ -431,7 +431,7 @@ Note that if you choose <code>Textedit</code>, be carefull that you <em>paste</e
 <h3 id="using-the-new-project">Using the new project<a class="headerlink" href="#using-the-new-project" title="Permanent link">&para;</a></h3>
 <p>Because of the way that Xcode and Cocoapods interact to handle project dependencies like the Branch SDK, you won't be able to continue using the <code>projectName.xcproject</code> file to work on your app. Instead, you need to use the <code>projectName.xcworkspace</code> file the was generated in the above steps. This <code>xcworkspace</code> file allows you to use both your code, and the Branch SDK code in the same project. To switch, simply quit Xcode and double click the new <code>.xcworkspace</code> file.</p>
 <h3 id="exposing-the-sdk">Exposing the SDK<a class="headerlink" href="#exposing-the-sdk" title="Permanent link">&para;</a></h3>
-<p>Because the Branch SDK is created in a different language than your app, we need to add a <code>Bridging header</code> to your project, to allow your Swift code to make use of the Objective C code in the SDK. To do this:</p>
+<p>Branch SDK is created in a different language than your app, so to be able to use the SDK in your app, you need to add a <code>Bridging header</code> to your project, to allow your Swift code to make use of the Objective C code in the SDK. To do this:</p>
 <ul>
 <li>Select <code>File -&gt; New -&gt; File</code> in Xcode</li>
 <li>Select the <code>Header file</code> option</li>
