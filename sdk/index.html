@@ -252,6 +252,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#exposing-the-sdk" title="Exposing the SDK" class="md-nav__link">
+    Exposing the SDK
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -339,6 +346,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#exposing-the-sdk" title="Exposing the SDK" class="md-nav__link">
+    Exposing the SDK
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -375,12 +389,23 @@
 <h3 id="adding-the-branch-pod">Adding the Branch Pod<a class="headerlink" href="#adding-the-branch-pod" title="Permanent link">&para;</a></h3>
 <p>To add the Branch SDK to your Xcode project, we need to initialize cocoapods. To do this, run <code>pod init</code> from the terminal window we set up previously. This will create a new file in your project folder called, descriptively, <code>Podfile</code>:</p>
 <p><img alt="image" src="../pod_init.gif" /></p>
-<p>This file contains all of the other code libraries, like the Branch SDK, that our project will use. To add Branch to this list of libraries, open the Podfile in a text editor, and add <code>pod 'Branch'</code> below <code>#Pods for ...</code></p>
+<p>This file contains all of the other code libraries, like the Branch SDK, that your project will use. To add Branch to this list of libraries, open the Podfile in a text editor, and add <code>pod 'Branch'</code> below <code>#Pods for ...</code></p>
 <p><img alt="image" src="../pod_config.gif" /></p>
 <p>Once the Branch pod as been declared, close your text editor, and run <code>pod install</code> to install the SDK files, and generate a new Xcode workspace:</p>
 <p><img alt="image" src="../pod_install.gif" /></p>
 <h3 id="using-the-new-project">Using the new project<a class="headerlink" href="#using-the-new-project" title="Permanent link">&para;</a></h3>
 <p>Because of the way that Xcode and Cocoapods interact to handle dependencies like the Branch SDK, you won't be able to continue using the <code>projectName.xcproject</code> to work on your app. Instead, you need to use the <code>projectName.xcworkspace</code> file the was generated in the above steps. To switch, simply quit Xcode and double click the <code>.xcworkspace</code> file.</p>
+<h3 id="exposing-the-sdk">Exposing the SDK<a class="headerlink" href="#exposing-the-sdk" title="Permanent link">&para;</a></h3>
+<p>Because the Branch SDK is created in a different language than your app we need to add a <code>Bridging header</code> to your project, to allow your Swift code to make use of the Objective C methods in the SDK. To do this, select <code>File -&gt; New -&gt; File</code> in your Xcode project, and select the <code>Header file</code> option. You can name this file whatever you like, but convention is to follow a <code>YourAppName-Bridging-Header.h</code> format. Once the file has been created, replace all of it's contents with:
+<div class="codehilite"><pre><span></span><span class="c1">//</span>
+<span class="c1">//  Use this file to import your target&#39;s public headers that you would like to expose to Swift.</span>
+<span class="c1">//</span>
+
+<span class="cp">#import &lt;Branch/Branch.h&gt;</span>
+<span class="cp">#import &lt;Branch/BranchUniversalObject.h&gt;</span>
+<span class="cp">#import &lt;Branch/BranchLinkProperties.h&gt;</span>
+</pre></div>
+</p>
                 
                   
                 

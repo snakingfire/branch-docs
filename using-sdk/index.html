@@ -359,18 +359,108 @@
                   <h1>Using the SDK</h1>
                 
                 <h3 id="initializing-branch">Initializing Branch<a class="headerlink" href="#initializing-branch" title="Permanent link">&para;</a></h3>
-<p>While we're still on the dashboard, let's come up with a URI scheme for your app. This can be anything you want (so long as it doesn't contain any "special" characters), and is used for opening your app in situations where Universal Links can't.</p>
-<p>Once you have a URI scheme to use, enter it on the dashboard, and click save. Once the dashboard has updated, switch to Xcode, and:</p>
-<ul>
-<li>Click the project file (it's the item at the top of the file list)</li>
-<li>Select the <code>Info</code> tab</li>
-<li>Expand the <code>URL Types</code> section</li>
-<li>Click the <code>+</code> symbol</li>
-<li>In the <code>URL Schemes</code> box, paste the URI Scheme you decided on above</li>
-</ul>
-<p><img alt="image" src="../uri_scheme.gif" /></p>
+<p>Now that we have all of the setup out of the way, we can start using the SDK. The first thing that we need to do is import the Branch SDK, so we can make use of it in your app. To do this, find the <code>import UIKit</code> line at the top of your <code>AppDelegate</code> file, and add a new line below it:
+<div class="codehilite"><pre><span></span><span class="kd">import</span> <span class="nc">Branch</span>
+</pre></div>
+</p>
+<p>Now that we have the SDK available to use, let's initialize a Branch session. To do this, open your <code>AppDelegate</code> file in Xcode, and find the <code>application:didFinishLaunchingWithOptions</code> section of code. On the line above <code>return true</code> add:
+<div class="codehilite"><pre><span></span><span class="kd">let</span> <span class="nv">branch</span> <span class="p">=</span> <span class="n">Branch</span><span class="p">.</span><span class="n">getInstance</span><span class="p">()</span>
+</pre></div>
+
+Then, one line below, add the Branch <code>initSession</code> call:
+<div class="codehilite"><pre><span></span><span class="n">branch</span><span class="p">?.</span><span class="n">initSession</span><span class="p">(</span><span class="n">launchOptions</span><span class="p">:</span> <span class="n">launchOptions</span><span class="p">,</span> <span class="n">andRegisterDeepLinkHandler</span><span class="p">:</span> <span class="p">{</span><span class="n">params</span><span class="p">,</span> <span class="n">error</span> <span class="k">in</span>
+    <span class="c1">// Check if an error occurred while getting deep link data</span>
+    <span class="k">if</span> <span class="n">error</span> <span class="p">==</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="c1">// params are the deep linked params associated with the link that the user clicked -&gt; was re-directed to this app</span>
+        <span class="c1">// params will be empty if no data found</span>
+        <span class="c1">// ... insert custom logic here ...</span>
+        <span class="bp">print</span><span class="p">(</span><span class="s">&quot;params: %@&quot;</span><span class="p">,</span> <span class="n">params</span><span class="p">.</span><span class="n">description</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+</pre></div>
+</p>
+<p>This code initiates a call to Branch's API to retrieve any deep link data that might exist. Right now, all it's doing it printing the data out to Xcode's console, and then continuing startup as normal. To get your links to route users to the correct place in your app, we need to add some custom "Deep link routing" logic.</p>
 <h3 id="handling-links">Handling Links<a class="headerlink" href="#handling-links" title="Permanent link">&para;</a></h3>
+<p>Before we start deep linking to all the various parts of your app, we need to make sure that your app is aware of "incoming" links, and handles them correctly. To do this, add the following before the very last <code>}</code> in your <code>AppDelegate</code>:</p>
+<div class="codehilite"><pre><span></span><span class="c1">// Respond to URI scheme links</span>
+<span class="kd">func</span> <span class="nf">application</span><span class="p">(</span><span class="kc">_</span> <span class="n">application</span><span class="p">:</span> <span class="bp">UIApplication</span><span class="p">,</span> <span class="n">open</span> <span class="n">url</span><span class="p">:</span> <span class="n">URL</span><span class="p">,</span> <span class="n">sourceApplication</span><span class="p">:</span> <span class="nb">String</span><span class="p">?,</span> <span class="n">annotation</span><span class="p">:</span> <span class="nb">Any</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="nb">Bool</span> <span class="p">{</span>
+    <span class="c1">// pass the url to the handle deep link call</span>
+    <span class="n">Branch</span><span class="p">.</span><span class="n">getInstance</span><span class="p">().</span><span class="n">handleDeepLink</span><span class="p">(</span><span class="n">url</span><span class="p">);</span>
+
+    <span class="c1">// do other deep link routing for the Facebook SDK, Pinterest SDK, etc</span>
+    <span class="k">return</span> <span class="kc">true</span>
+<span class="p">}</span>
+
+<span class="c1">// Respond to Universal Links</span>
+<span class="kd">func</span> <span class="nf">application</span><span class="p">(</span><span class="kc">_</span> <span class="n">application</span><span class="p">:</span> <span class="bp">UIApplication</span><span class="p">,</span> <span class="k">continue</span> <span class="n">userActivity</span><span class="p">:</span> <span class="bp">NSUserActivity</span><span class="p">,</span> <span class="n">restorationHandler</span><span class="p">:</span> <span class="p">@</span><span class="n">escaping</span> <span class="p">([</span><span class="nb">Any</span><span class="p">]?)</span> <span class="p">-&gt;</span> <span class="nb">Void</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="nb">Bool</span> <span class="p">{</span>
+    <span class="c1">// pass the url to the handle deep link call</span>
+    <span class="n">Branch</span><span class="p">.</span><span class="n">getInstance</span><span class="p">().</span><span class="k">continue</span><span class="p">(</span><span class="n">userActivity</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="kc">true</span>
+<span class="p">}</span>
+</pre></div>
+
+
 <h3 id="deep-link-routing">Deep Link routing<a class="headerlink" href="#deep-link-routing" title="Permanent link">&para;</a></h3>
+<p>The last core component of deep linking we need to add to your app is the code that decides where to take the user, depending on the data inside of the Branch link they clicked.</p>
+<p>To start off, let's add a variable to the <code>AppDelegate</code> to let us track and set the type of animal we will show to the user on startup. Below the line with <code>var window: UIWindow?</code>, add a new variable:
+<div class="codehilite"><pre><span></span><span class="kd">var</span> <span class="nv">selectedAnimal</span><span class="p">:</span> <span class="nb">String</span><span class="p">?</span>
+</pre></div>
+</p>
+<p>Now, go back the the <code>initSession</code> call you added earlier, and replace the:
+<div class="codehilite"><pre><span></span><span class="k">if</span> <span class="n">error</span> <span class="p">==</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="c1">// params are the deep linked params associated with the link that the user clicked -&gt; was re-directed to this app</span>
+    <span class="c1">// params will be empty if no data found</span>
+    <span class="c1">// ... insert custom logic here ...</span>
+    <span class="bp">print</span><span class="p">(</span><span class="s">&quot;params: %@&quot;</span><span class="p">,</span> <span class="n">params</span><span class="p">.</span><span class="n">description</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+code with:
+<div class="codehilite"><pre><span></span><span class="k">if</span> <span class="n">error</span> <span class="p">==</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="n">params</span><span class="p">?[</span><span class="s">&quot;animal&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+
+    <span class="kc">self</span><span class="p">.</span><span class="n">selectedAnimal</span> <span class="p">=</span> <span class="n">params</span><span class="p">?[</span><span class="s">&quot;animal&quot;</span><span class="p">]</span><span class="o">!</span> <span class="k">as</span><span class="p">!</span> <span class="nb">String</span><span class="p">?</span>
+    <span class="bp">print</span><span class="p">(</span><span class="s">&quot;Clicked animal link for </span><span class="si">\(</span><span class="kc">self</span><span class="p">.</span><span class="n">selectedAnimal</span><span class="p">!</span><span class="si">)</span><span class="s">!&quot;</span><span class="p">)</span>
+
+    <span class="kd">let</span> <span class="nv">storyboard</span> <span class="p">=</span> <span class="bp">UIStoryboard</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="s">&quot;Main&quot;</span><span class="p">,</span> <span class="n">bundle</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+    <span class="kd">let</span> <span class="nv">mainController</span> <span class="p">=</span> <span class="n">storyboard</span><span class="p">.</span><span class="n">instantiateInitialViewController</span><span class="p">()</span><span class="o">!</span> <span class="k">as</span> <span class="bp">UIViewController</span>
+    <span class="kc">self</span><span class="p">.</span><span class="n">window</span><span class="p">!.</span><span class="n">rootViewController</span> <span class="p">=</span> <span class="n">mainController</span>
+
+    <span class="kd">let</span> <span class="nv">destination</span> <span class="p">=</span> <span class="n">storyboard</span><span class="p">.</span><span class="n">instantiateViewController</span><span class="p">(</span><span class="n">withIdentifier</span><span class="p">:</span> <span class="s">&quot;animalDetails&quot;</span><span class="p">)</span> <span class="k">as</span><span class="p">!</span> <span class="n">DetailViewController</span>
+    <span class="n">destination</span><span class="p">.</span><span class="n">selectedAnimal</span> <span class="p">=</span> <span class="nb">String</span><span class="p">(</span><span class="n">describing</span><span class="p">:</span> <span class="kc">self</span><span class="p">.</span><span class="n">selectedAnimal</span><span class="p">!)</span>
+
+    <span class="kc">self</span><span class="p">.</span><span class="n">window</span><span class="p">!.</span><span class="n">rootViewController</span><span class="p">?.</span><span class="n">present</span><span class="p">(</span><span class="n">destination</span><span class="p">,</span> <span class="n">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="n">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+
+<span class="p">}</span>
+</pre></div>
+</p>
+<p>This is quite a change, so let's go back over it and see what each part is doing.</p>
+<p>To start off, the first line:
+<div class="codehilite"><pre><span></span><span class="k">if</span> <span class="n">error</span> <span class="p">==</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="n">params</span><span class="p">?[</span><span class="s">&quot;+clicked_branch_link&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="n">params</span><span class="p">?[</span><span class="s">&quot;animal&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</pre></div>
+
+is checking to make sure that:</p>
+<ol>
+<li>No errors occurred while we were retrieving the deep link data from Branch</li>
+<li>The deep link data the was returned has an <code>animal</code></li>
+</ol>
+<p>Once we verified that nothing went wrong, and that we have the data we need in order to route the user, we set the <code>selectedAnimal</code> variable to the <code>animal</code> in the deep link data:
+<div class="codehilite"><pre><span></span><span class="kc">self</span><span class="p">.</span><span class="n">selectedAnimal</span> <span class="p">=</span> <span class="n">params</span><span class="p">?[</span><span class="s">&quot;animal&quot;</span><span class="p">]</span><span class="o">!</span> <span class="k">as</span><span class="p">!</span> <span class="nb">String</span><span class="p">?</span>
+</pre></div>
+</p>
+<p>Now, with an animal to show to the user, we can start preparing the view components that we will show to the user. In order to do this, we need to set up the main view controller, and then get an instance of the DetailViewController we will show to the user:
+<div class="codehilite"><pre><span></span><span class="kd">let</span> <span class="nv">storyboard</span> <span class="p">=</span> <span class="bp">UIStoryboard</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="s">&quot;Main&quot;</span><span class="p">,</span> <span class="n">bundle</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+<span class="kd">let</span> <span class="nv">mainController</span> <span class="p">=</span> <span class="n">storyboard</span><span class="p">.</span><span class="n">instantiateInitialViewController</span><span class="p">()</span><span class="o">!</span> <span class="k">as</span> <span class="bp">UIViewController</span>
+<span class="kc">self</span><span class="p">.</span><span class="n">window</span><span class="p">!.</span><span class="n">rootViewController</span> <span class="p">=</span> <span class="n">mainController</span>
+
+<span class="kd">let</span> <span class="nv">destination</span> <span class="p">=</span> <span class="n">storyboard</span><span class="p">.</span><span class="n">instantiateViewController</span><span class="p">(</span><span class="n">withIdentifier</span><span class="p">:</span> <span class="s">&quot;animalDetails&quot;</span><span class="p">)</span> <span class="k">as</span><span class="p">!</span> <span class="n">DetailViewController</span>
+</pre></div>
+</p>
+<p>Finally, we set the <code>selectedAnimal</code> property of our destination view to the <code>animal</code> we pulled from the returned deep link data, and present the view to the user.</p>
+<div class="codehilite"><pre><span></span><span class="n">destination</span><span class="p">.</span><span class="n">selectedAnimal</span> <span class="p">=</span> <span class="nb">String</span><span class="p">(</span><span class="n">describing</span><span class="p">:</span> <span class="kc">self</span><span class="p">.</span><span class="n">selectedAnimal</span><span class="p">!)</span>
+
+<span class="kc">self</span><span class="p">.</span><span class="n">window</span><span class="p">!.</span><span class="n">rootViewController</span><span class="p">?.</span><span class="n">present</span><span class="p">(</span><span class="n">destination</span><span class="p">,</span> <span class="n">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="n">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+</pre></div>
                 
                   
                 
