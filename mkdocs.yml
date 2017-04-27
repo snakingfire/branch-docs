@@ -1,0 +1,64 @@
+# Project information
+site_name: 'Branch Documentation'
+site_description: 'Branch Deep Link Documentation'
+site_author: 'Branch'
+site_url: 'https://snakingfire.github.io/build-an-app'
+
+# Repository
+repo_name: 'Branch Documentation'
+repo_url: 'https://github.com/snakingfire/build-an-app'
+edit_uri: 'edit/master/docs/'
+
+# Copyright
+copyright: 'Copyright &copy; 2017 <a href="https://branch.io">Branch</a>'
+
+# Theme
+theme: 'material'
+theme_dir: 'theme'
+extra_css:
+  - 'css/extra.css'
+extra_javascript:
+  - 'js/extra.js'
+
+# Options
+extra:
+  # logo: 'img/logo.svg'
+  palette:
+    primary: 'light blue'
+    accent: 'light blue'
+  font:
+    text: 'Roboto'
+    code: 'Roboto Mono'
+  social:
+    - type: 'globe'
+      link: 'https://branch.io'
+    - type: 'github'
+      link: 'https://github.com/BranchMetrics/Documentation'
+    - type: 'twitter'
+      link: 'https://twitter.com/branchmetrics'
+    - type: 'facebook'
+      link: 'https://www.facebook.com/branchmetrics'
+    - type: 'linkedin'
+      link: 'https://www.linkedin.com/company-beta/3813083'
+
+# Google Analytics
+google_analytics:
+  - 'UA-XXXXXXXX-X'
+  - 'auto'
+
+# Extensions
+markdown_extensions:
+  - codehilite
+  - footnotes
+  - toc(permalink=true)
+  - meta
+  - pymdownx.github
+  - markdown_include.include
+
+# Pages
+pages:
+  - Integrating an app with Branch: index.md
+  - Getting the SDK: sdk.md
+  - Creating an app: dash.md
+  - Opening the app with links: ul-uri.md
+  - Using the SDK: using-sdk.md
