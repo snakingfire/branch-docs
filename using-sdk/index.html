@@ -401,7 +401,7 @@
         <span class="c1">// params are the deep linked params associated with the link that the user clicked -&gt; was re-directed to this app</span>
         <span class="c1">// params will be empty if no data found</span>
         <span class="c1">// ... insert custom logic here ...</span>
-        <span class="bp">print</span><span class="p">(</span><span class="s">&quot;params: %@&quot;</span><span class="p">,</span> <span class="n">params</span><span class="p">.</span><span class="n">description</span><span class="p">)</span>
+        <span class="bp">print</span><span class="p">(</span><span class="s">&quot;params: %@&quot;</span><span class="p">,</span> <span class="n">params</span><span class="p">!.</span><span class="n">description</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">})</span>
 </pre></div>
@@ -409,7 +409,7 @@
 
 <p>This code initiates a call to Branch's API to retrieve any deep link data that might exist. Right now, all it's doing is printing the data out to the Xcode console and then continuing startup as normal. To get your links to route users to the correct place in your app, we need to add some custom routing logic.</p>
 <h3 id="handling-links">Handling Links<a class="headerlink" href="#handling-links" title="Permanent link">&para;</a></h3>
-<p>Before we start deep linking to all the various parts of your app, we need to make sure that your app is aware of "incoming" links and that it is set up to handle them correctly. To do this, add the following two functions to your <code>AppDelegate</code> file:</p>
+<p>Before we start deep linking to all the various parts of your app, we need to make sure that your app is aware of "incoming" links and that it is set up to handle them correctly. To do this, add the following two functions to your <code>AppDelegate</code>, right before the very last <code>}</code> in the file:</p>
 <div class="codehilite"><pre><span></span><span class="c1">// Respond to URI scheme links</span>
 <span class="kd">func</span> <span class="nf">application</span><span class="p">(</span><span class="kc">_</span> <span class="n">application</span><span class="p">:</span> <span class="bp">UIApplication</span><span class="p">,</span> <span class="n">open</span> <span class="n">url</span><span class="p">:</span> <span class="n">URL</span><span class="p">,</span> <span class="n">sourceApplication</span><span class="p">:</span> <span class="nb">String</span><span class="p">?,</span> <span class="n">annotation</span><span class="p">:</span> <span class="nb">Any</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="nb">Bool</span> <span class="p">{</span>
     <span class="c1">// pass the url to the handle deep link call</span>
@@ -431,7 +431,16 @@
 
 <h3 id="deep-link-routing">Deep Link routing<a class="headerlink" href="#deep-link-routing" title="Permanent link">&para;</a></h3>
 <p>The last core component of deep linking we need to add to your app is the code that decides where to take the user, depending on the data inside of the Branch link they clicked.</p>
-<p>To start off, let's add a variable to the <code>AppDelegate</code> to let us track and set the type of animal we will show to the user on startup. Below the line with <code>var window: UIWindow?</code>, add a new variable:
+<p>To start off, let's add a unique identifier to the <code>DetailView</code> so we can reference it in our routing code:</p>
+<ol>
+<li>Open the <code>MainStoryboard</code> file in your project</li>
+<li>Select the <code>DetailViewController</code></li>
+<li>Expand the right-hand side bar</li>
+<li>Open the <code>Identity inspector</code> (third tab from the left)</li>
+<li>Set the <code>Storyboard id</code> to <code>animalDetails</code></li>
+</ol>
+<p><img alt="image" src="../view_id.gif" /></p>
+<p>Now that we access the Storyboard view, we can start adding code to open and populate the view on a deep link. The first thing we need to do is add a variable to the <code>AppDelegate</code> file to let us track and set the type of animal we will show to the user on startup. Below the line with <code>var window: UIWindow?</code>, add a new variable:
 <div class="codehilite"><pre><span></span><span class="kd">var</span> <span class="nv">selectedAnimal</span><span class="p">:</span> <span class="nb">String</span><span class="p">?</span>
 </pre></div>
 </p>
@@ -470,7 +479,7 @@ with this one:
 is checking to make sure that:</p>
 <ol>
 <li>No errors occurred while we were retrieving the deep link data from Branch</li>
-<li>The deep link data the was returned has an <code>animal</code></li>
+<li>The deep link data that was returned has an <code>animal</code></li>
 </ol>
 <p>Once we have verified that nothing went wrong, and that we have the data we need to route the user, we set the <code>selectedAnimal</code> variable to the <code>animal</code> in the deep link data:
 <div class="codehilite"><pre><span></span><span class="kc">self</span><span class="p">.</span><span class="n">selectedAnimal</span> <span class="p">=</span> <span class="n">params</span><span class="p">?[</span><span class="s">&quot;animal&quot;</span><span class="p">]</span><span class="o">!</span> <span class="k">as</span><span class="p">!</span> <span class="nb">String</span><span class="p">?</span>
@@ -499,13 +508,14 @@ is checking to make sure that:</p>
 <li>Show the user the share sheet</li>
 </ol>
 <p>To add sharing to your Branch app, open the <code>MainStoryboad</code> file, and add a new button, called "Share", somewhere on the DetailView:</p>
-<ol>
-<li><code>Control + Drag</code> the button into the <code>DetailViewController</code></li>
-<li>Change the <code>Connection</code> type to <code>action</code></li>
-<li>Name the connection something like <code>shareButton</code></li>
-</ol>
+<blockquote>
+<p>Don't forget to add constraints to the button, or it may show up in an unexpected place on the view
+1. <code>Control + Drag</code> the button into the <code>DetailViewController</code>
+1. Change the <code>Connection</code> type to <code>action</code>
+1. Name the connection something like <code>shareButton</code></p>
+</blockquote>
 <p><img alt="image" src="../share_button.gif" /></p>
-<p>Inside of the <code>@IBAction func shareButton</code> code block, add the following:
+<p>At the top of the <code>DetailViewController</code>, add <code>import Branch</code>. Then, inside of the <code>@IBAction func shareButton</code> code block, add the following code:
 <div class="codehilite"><pre><span></span><span class="kd">let</span> <span class="nv">linkProperties</span><span class="p">:</span> <span class="n">BranchLinkProperties</span> <span class="p">=</span> <span class="n">BranchLinkProperties</span><span class="p">()</span>
 <span class="n">linkProperties</span><span class="p">.</span><span class="n">feature</span> <span class="p">=</span> <span class="s">&quot;sharing&quot;</span>
 
