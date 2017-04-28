@@ -389,11 +389,12 @@
 <div class="codehilite"><pre><span></span><span class="kd">import</span> <span class="nc">Branch</span>
 </pre></div>
 </p>
-<p>Now that we have the SDK available to use, let's initialize a Branch session. To do this, open your <code>AppDelegate</code> file in Xcode, and find the <code>application:didFinishLaunchingWithOptions</code> section of code. On the line above <code>return true</code> add:
+<p>Next, lets initialize a Branch session. To do this, open your AppDelegate file in Xcode, and find the application:didFinishLaunchingWithOptions section of code. On the line above <code>return true</code> add:</p>
 <div class="codehilite"><pre><span></span><span class="kd">let</span> <span class="nv">branch</span> <span class="p">=</span> <span class="n">Branch</span><span class="p">.</span><span class="n">getInstance</span><span class="p">()</span>
 </pre></div>
 
-Then, one line below, add the Branch <code>initSession</code> call:
+
+<p>Then, one line below, add the Branch <code>initSession</code> call:</p>
 <div class="codehilite"><pre><span></span><span class="n">branch</span><span class="p">?.</span><span class="n">initSession</span><span class="p">(</span><span class="n">launchOptions</span><span class="p">:</span> <span class="n">launchOptions</span><span class="p">,</span> <span class="n">andRegisterDeepLinkHandler</span><span class="p">:</span> <span class="p">{</span><span class="n">params</span><span class="p">,</span> <span class="n">error</span> <span class="k">in</span>
     <span class="c1">// Check if an error occurred while getting deep link data</span>
     <span class="k">if</span> <span class="n">error</span> <span class="p">==</span> <span class="kc">nil</span> <span class="p">{</span>
@@ -404,10 +405,11 @@ Then, one line below, add the Branch <code>initSession</code> call:
     <span class="p">}</span>
 <span class="p">})</span>
 </pre></div>
-</p>
-<p>This code initiates a call to Branch's API to retrieve any deep link data that might exist. Right now, all it's doing it printing the data out to Xcode's console, and then continuing startup as normal. To get your links to route users to the correct place in your app, we need to add some custom "Deep link routing" logic.</p>
+
+
+<p>This code initiates a call to Branch's API to retrieve any deep link data that might exist. Right now, all it's doing is printing the data out to the Xcode console and then continuing startup as normal. To get your links to route users to the correct place in your app, we need to add some custom routing logic.</p>
 <h3 id="handling-links">Handling Links<a class="headerlink" href="#handling-links" title="Permanent link">&para;</a></h3>
-<p>Before we start deep linking to all the various parts of your app, we need to make sure that your app is aware of "incoming" links, and handles them correctly. To do this, add the following before the very last <code>}</code> in your <code>AppDelegate</code>:</p>
+<p>Before we start deep linking to all the various parts of your app, we need to make sure that your app is aware of "incoming" links and that it is set up to handle them correctly. To do this, add the following two functions to your <code>AppDelegate</code> file:</p>
 <div class="codehilite"><pre><span></span><span class="c1">// Respond to URI scheme links</span>
 <span class="kd">func</span> <span class="nf">application</span><span class="p">(</span><span class="kc">_</span> <span class="n">application</span><span class="p">:</span> <span class="bp">UIApplication</span><span class="p">,</span> <span class="n">open</span> <span class="n">url</span><span class="p">:</span> <span class="n">URL</span><span class="p">,</span> <span class="n">sourceApplication</span><span class="p">:</span> <span class="nb">String</span><span class="p">?,</span> <span class="n">annotation</span><span class="p">:</span> <span class="nb">Any</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="nb">Bool</span> <span class="p">{</span>
     <span class="c1">// pass the url to the handle deep link call</span>
@@ -433,7 +435,7 @@ Then, one line below, add the Branch <code>initSession</code> call:
 <div class="codehilite"><pre><span></span><span class="kd">var</span> <span class="nv">selectedAnimal</span><span class="p">:</span> <span class="nb">String</span><span class="p">?</span>
 </pre></div>
 </p>
-<p>Now, go back the the <code>initSession</code> call you added earlier, and replace the:
+<p>Now, go back the the <code>initSession</code> call you added earlier, and replace this block of code:
 <div class="codehilite"><pre><span></span><span class="k">if</span> <span class="n">error</span> <span class="p">==</span> <span class="kc">nil</span> <span class="p">{</span>
     <span class="c1">// params are the deep linked params associated with the link that the user clicked -&gt; was re-directed to this app</span>
     <span class="c1">// params will be empty if no data found</span>
@@ -442,7 +444,7 @@ Then, one line below, add the Branch <code>initSession</code> call:
 <span class="p">}</span>
 </pre></div>
 
-code with:
+with this one:
 <div class="codehilite"><pre><span></span><span class="k">if</span> <span class="n">error</span> <span class="p">==</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="n">params</span><span class="p">?[</span><span class="s">&quot;animal&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
 
     <span class="kc">self</span><span class="p">.</span><span class="n">selectedAnimal</span> <span class="p">=</span> <span class="n">params</span><span class="p">?[</span><span class="s">&quot;animal&quot;</span><span class="p">]</span><span class="o">!</span> <span class="k">as</span><span class="p">!</span> <span class="nb">String</span><span class="p">?</span>
@@ -470,7 +472,7 @@ is checking to make sure that:</p>
 <li>No errors occurred while we were retrieving the deep link data from Branch</li>
 <li>The deep link data the was returned has an <code>animal</code></li>
 </ol>
-<p>Once we verified that nothing went wrong, and that we have the data we need in order to route the user, we set the <code>selectedAnimal</code> variable to the <code>animal</code> in the deep link data:
+<p>Once we have verified that nothing went wrong, and that we have the data we need to route the user, we set the <code>selectedAnimal</code> variable to the <code>animal</code> in the deep link data:
 <div class="codehilite"><pre><span></span><span class="kc">self</span><span class="p">.</span><span class="n">selectedAnimal</span> <span class="p">=</span> <span class="n">params</span><span class="p">?[</span><span class="s">&quot;animal&quot;</span><span class="p">]</span><span class="o">!</span> <span class="k">as</span><span class="p">!</span> <span class="nb">String</span><span class="p">?</span>
 </pre></div>
 </p>
@@ -491,17 +493,17 @@ is checking to make sure that:</p>
 
 <h3 id="content-sharing">Content Sharing<a class="headerlink" href="#content-sharing" title="Permanent link">&para;</a></h3>
 <p>One of the most valuable link distribution channels that you as a developer have access to are your users. To make sure that you fully support this, it's important to add content sharing functionality to your app, to provide an easy way for your users to create and send links. Thankfully, with Branch, content sharing is a very easy process. All you need to do is:</p>
-<ul>
+<ol>
 <li>Configure the link properties (eg Redirect URL's)</li>
 <li>Add link data (eg the <code>animal</code> property)</li>
 <li>Show the user the share sheet</li>
-</ul>
+</ol>
 <p>To add sharing to your Branch app, open the <code>MainStoryboad</code> file, and add a new button, called "Share", somewhere on the DetailView:</p>
-<ul>
+<ol>
 <li><code>Control + Drag</code> the button into the <code>DetailViewController</code></li>
 <li>Change the <code>Connection</code> type to <code>action</code></li>
 <li>Name the connection something like <code>shareButton</code></li>
-</ul>
+</ol>
 <p><img alt="image" src="../share_button.gif" /></p>
 <p>Inside of the <code>@IBAction func shareButton</code> code block, add the following:
 <div class="codehilite"><pre><span></span><span class="kd">let</span> <span class="nv">linkProperties</span><span class="p">:</span> <span class="n">BranchLinkProperties</span> <span class="p">=</span> <span class="n">BranchLinkProperties</span><span class="p">()</span>
