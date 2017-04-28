@@ -33,11 +33,13 @@ To configure Universal Links:
 
 3. Expand the entry, and copy the `Prefix` value.
 
-> If you don't see your Bundle Id listed, it may not have registered yet. To give it a kick, and speed things up:
-> 1. Open Xcode, and select your project file
-> 2. Select the "Capabilities" tab
-> 3. Scroll to the bottom and turn "Associated Domains" to "on"
-> If you go back to the [developer website](https://developer.apple.com/account/ios/identifier/bundle), you should now see your Bundle Id listed
+If you don't see your Bundle Id listed, it may not have registered yet. To give it a kick, and speed things up:
+
+1. Open Xcode, and select your project file
+2. Select the "Capabilities" tab
+3. Scroll to the bottom and turn "Associated Domains" to "on"
+
+If you go back to the [developer website](https://developer.apple.com/account/ios/identifier/bundle), you should now see your Bundle Id listed
 
 With the `Prefix` for your app, head over to the [link settings](https://dashboard.branch.io/settings/link) page of your dashboard. Here:
 
