@@ -2,10 +2,10 @@
 
 The quickest way to get the Branch SDK is by using the dependency manager Cocoapods. However, before you can use Cocoapods to get the Branch SDK, you must first install Cocoapods itself. To do this:
 
-1. Open a terminal window
+1. Open a terminal window (press `command` and `space` at the same time, type `terminal` and press enter)
 1. Paste in the command: `sudo gem install cocoapods`
 
-> The `sudo` command provides special permissions needed to install Cocoapods, so you'll need to enter your computer password when prompted
+> The `sudo` command provides special permissions needed to install Cocoapods, so you'll need to enter your computer password when prompted. For security, you won't actually see any indication of your password when typing, but don't worry, it's being registered.
 
 Once the command finishes running:
 

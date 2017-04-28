@@ -6,7 +6,9 @@ Congratulations! You've made it almost all the way through this guide. At this p
 1. Configured Universal Links and a URI Scheme
 1. Set up deep link routing to take users to an animal
 
-The only thing left to do is test the integration out. Go back to your Branch dashboard, and [create a new link](https://dashboard.branch.io/quick-links/qlc/config/). Name it anything you like, and then:
+The only thing left to do is test the integration out. Open your app, select an animal, click share, and send the link to iMessages. When you close the app and click the link, you should be taken directly the animal you originally viewed.
+
+<!-- Go back to your Branch dashboard, and [create a new link](https://dashboard.branch.io/quick-links/qlc/config/). Name it anything you like, and then:
 
 1. Click `Configure Options`
 1. Select `+ More Data`
@@ -14,7 +16,7 @@ The only thing left to do is test the integration out. Go back to your Branch da
 1. Update the `Value`to either `cat` or `dog`
 1. Click `Create now`
 
-![image](/create_link.gif)
+![image](/create_link.gif) -->
 
 ## Next steps
 

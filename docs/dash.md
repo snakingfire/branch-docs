@@ -14,7 +14,7 @@ With a new Branch app, we need to specify where your future users will be sent. 
 
  1. Select `I have an iOS App`
  1. Enter an iOS redirect URL (eg `http://branch.io`)
- 1. (Optional) Add redirects for Android and Desktop
+ 1. Add redirects for Android and Desktop (eg `http://branch.io`)
  1. Click save
 
   ![image](/dash_redirect.gif)
@@ -26,7 +26,7 @@ Finally, before moving forward, we need to add the key of the newly created Bran
 1. Open the `info.plist` file
 1. Hover over the last entry, and click the `+` button
 1. Name the new entry `branch_key` and use the drop-down menu on the right to set the type to `dictionary`
-1. Use the small carat on the left edge of the row to expand the `branch_key` entry 
+1. Use the small carat on the left edge of the row to expand the `branch_key` entry
 1. Hover over the `branch_key` entry, and click the `+` symbol again
 1. Name the new entry `live`, and set the value to the Branch key you copied earlier.
 

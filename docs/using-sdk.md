@@ -20,7 +20,7 @@ branch?.initSession(launchOptions: launchOptions, andRegisterDeepLinkHandler: {p
         // params are the deep linked params associated with the link that the user clicked -> was re-directed to this app
         // params will be empty if no data found
         // ... insert custom logic here ...
-        print("params: %@", params.description)
+        print("params: %@", params!.description)
     }
 })
 ```
@@ -29,7 +29,7 @@ This code initiates a call to Branch's API to retrieve any deep link data that m
 
 ### Handling Links
 
-Before we start deep linking to all the various parts of your app, we need to make sure that your app is aware of "incoming" links and that it is set up to handle them correctly. To do this, add the following two functions to your `AppDelegate` file:
+Before we start deep linking to all the various parts of your app, we need to make sure that your app is aware of "incoming" links and that it is set up to handle them correctly. To do this, add the following two functions to your `AppDelegate`, right before the very last `}` in the file:
 
 ```swift
 // Respond to URI scheme links
@@ -54,7 +54,17 @@ func application(_ application: UIApplication, continue userActivity: NSUserActi
 
 The last core component of deep linking we need to add to your app is the code that decides where to take the user, depending on the data inside of the Branch link they clicked.
 
-To start off, let's add a variable to the `AppDelegate` to let us track and set the type of animal we will show to the user on startup. Below the line with `var window: UIWindow?`, add a new variable:
+To start off, let's add a unique identifier to the `DetailView` so we can reference it in our routing code:
+
+1. Open the `MainStoryboard` file in your project
+1. Select the `DetailViewController`
+1. Expand the right-hand side bar
+1. Open the `Identity inspector` (third tab from the left)
+2. Set the `Storyboard id` to `animalDetails`
+
+![image](/view_id.gif)
+
+Now that we access the Storyboard view, we can start adding code to open and populate the view on a deep link. The first thing we need to do is add a variable to the `AppDelegate` file to let us track and set the type of animal we will show to the user on startup. Below the line with `var window: UIWindow?`, add a new variable:
 ```swift
 var selectedAnimal: String?
 ```
@@ -96,7 +106,7 @@ if error == nil && params?["+clicked_branch_link"] != nil && params?["animal"] !
 is checking to make sure that:
 
 1. No errors occurred while we were retrieving the deep link data from Branch
-2. The deep link data the was returned has an `animal`
+2. The deep link data that was returned has an `animal`
 
 Once we have verified that nothing went wrong, and that we have the data we need to route the user, we set the `selectedAnimal` variable to the `animal` in the deep link data:
 ```swift
@@ -129,14 +139,14 @@ One of the most valuable link distribution channels that you as a developer have
 1. Show the user the share sheet
 
 To add sharing to your Branch app, open the `MainStoryboad` file, and add a new button, called "Share", somewhere on the DetailView:
-
+> Don't forget to add constraints to the button, or it may show up in an unexpected place on the view
 1. `Control + Drag` the button into the `DetailViewController`
 1. Change the `Connection` type to `action`
 1. Name the connection something like `shareButton`
 
 ![image](/share_button.gif)
 
-Inside of the `@IBAction func shareButton` code block, add the following:
+At the top of the `DetailViewController`, add `import Branch`. Then, inside of the `@IBAction func shareButton` code block, add the following code:
 ```swift
 let linkProperties: BranchLinkProperties = BranchLinkProperties()
 linkProperties.feature = "sharing"
