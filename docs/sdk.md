@@ -53,7 +53,7 @@ in your terminal window to add the SDK files and generate a new Xcode workspace:
 
 ### Using the new project
 
-Because of the way that Xcode and Cocoapods interact to handle project dependencies like the Branch SDK, you won't be able to continue using the `projectName.xcproject` file to work on your app. Instead, you need to use the `projectName.xcworkspace` file the was generated in the above steps. This `xcworkspace` file allows you to use both your code, and the Branch SDK code in the same project. To switch, simply quit Xcode and double click the new `.xcworkspace` file.
+Because of the way that Xcode and Cocoapods interact to handle project dependencies like the Branch SDK, you won't be able to continue using the `projectName.xcproject` file to work on your app. Instead, you need to use the `projectName.xcworkspace` file that was generated in the above steps. This `xcworkspace` file allows you to use both your code, and the Branch SDK code in the same project. To switch, simply quit Xcode and double click the new `.xcworkspace` file.
 
 ### Exposing the SDK
 
