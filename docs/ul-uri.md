@@ -5,7 +5,7 @@ While we're still on the dashboard, let's come up with a URI scheme for your app
 super-cool-app://
 ```
 
-Once you have a URI scheme to use, got to the [link settings page](http://dashboard.branch.io/link-settings) of your dashboard, enter the URI scheme you've devised (in the `iOS URI Scheme` box), and click save. Once the dashboard has updated, switch to Xcode, and:
+Once you've come up with a URI scheme to use, go to the [link settings page](http://dashboard.branch.io/link-settings) of your dashboard, enter the URI scheme you've devised (in the `iOS URI Scheme` box), and click save. Once the dashboard has updated, switch to Xcode, and:
 
   1. Click the project file (it's the item at the top of the file list)
   1. Select the `Info` tab
@@ -24,27 +24,24 @@ Once you have a URI scheme to use, got to the [link settings page](http://dashbo
 
 Universal Links are crucial for opening your app, so getting them set up is one of the most important parts of integrating with Branch.
 
-To configure Universal Links:
+To find your `Bundle Identifier` in Xcode, select the blue project file with your app's name and choose the 'General' tab. The `Bundle Identifier` field will be the second entry on the screen (something like 'io.branch.BuildAnAppXX'). Copy it.
 
-1. Go to the [`Certificates, Identifiers & Profiles`](https://developer.apple.com/account/ios/identifier/bundle) page of Apple's Developer website.
-1. Search for the `Bundle Identifier` that you set for your project
+1. Head over to the [link settings](https://dashboard.branch.io/settings/link) page of your dashboard first, and copy this value in the `Bundle Identifier` field. Click save.
 
-> You can find this by going to Xcode, and select the blue project file with your apps name. The Bundle Id will be the second entry on the screen
+2. To configure Universal Links with Apple:
 
-3. Expand the entry, and copy the `Prefix` value.
+  1. Go to the [`Certificates, Identifiers & Profiles`](https://developer.apple.com/account/ios/identifier/bundle) page of Apple's Developer website.
+  2. Search for the `Bundle Identifier` that you copied from within Xcode (follow instructions below if you can't find it).
+  3. Click on the entry to expand it, and copy the `Prefix` value.
 
-If you don't see your Bundle Id listed, it may not have registered yet. To give it a kick, and speed things up:
+	If you don't see your Bundle Id listed with Apple, it may not have registered yet. To give it a kick, and speed things up:
 
-1. Open Xcode, and select your project file
-2. Select the "Capabilities" tab
-3. Scroll to the bottom and turn "Associated Domains" to "on"
+	1. Open Xcode, and select your project file
+	2. Select the "Capabilities" tab
+	3. Scroll to the bottom and turn "Associated Domains" to "on"
+	4. If you go back to the [developer website](https://developer.apple.com/account/ios/identifier/bundle), you should now see your Bundle Id listed
 
-If you go back to the [developer website](https://developer.apple.com/account/ios/identifier/bundle), you should now see your Bundle Id listed
-
-With the `Prefix` for your app, head over to the [link settings](https://dashboard.branch.io/settings/link) page of your dashboard. Here:
-
-1. Set the `Apple App Prefix` to the value you just copied,
-1. Update the `Bundle Identifier` field to the id you set for your project.
+3. With the `Prefix` for your app, head back over to the [link settings](https://dashboard.branch.io/settings/link) page of your dashboard. Set the `Apple App Prefix` to the `Prefix` value you just copied. Click save.
 
 >Don't forget to click save!
 
@@ -52,7 +49,7 @@ With the `Prefix` for your app, head over to the [link settings](https://dashboa
 
 #### Xcode setup
 
-Once you've updated your dashboard settings, you need to switch back to Xcode to configure the `Entitlements` with your Branch app. Before switch, though, make sure to note down the Branch `<something>.app.link` domain that your Branch app is using. In Xcode:
+Once you've updated your dashboard settings, you need to switch back to Xcode to configure the `Entitlements` with your Branch app. Before you switch, though, make sure to note down the Branch `<something>.app.link` domain that your Branch app is using. In Xcode:
 
 1. Click your project file (top of the list)
 1. Select the `Capabilities` tab
@@ -71,7 +68,7 @@ One last thing to note is that iOS doesn't update your app's Universal Link sett
 
 ### Testing break
 
-At this point, your Branch links should now be able to open your app. Give it a shot by [creating a new link](https://dashboard.branch.io/quick-links/qlc/config/), and clicking it from the native iMessage app. You should see your app immediately launched to its home screen.
+At this point, your Branch links should now be able to open your app. Give it a shot by [creating a new link](https://dashboard.branch.io/quick-links/qlc/define/) and copying it. To test it, you can paste it into a message in the native iMessage app (remember to click to find 'Paste' if you're in the simulator) and click the link from there. You should see your app immediately launched to its home screen.
 
 ### Troubleshooting
 
